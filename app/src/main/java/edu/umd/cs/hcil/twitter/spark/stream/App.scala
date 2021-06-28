@@ -86,7 +86,7 @@ object App {
     var numTasks = 16
 
     val checkpointPath = {
-      "/tmp/checkpointDirectory"
+      "./checkpointDirectory"
     }
     ssc.checkpoint(checkpointPath)
 
@@ -488,7 +488,7 @@ object App {
       val logEntry: String = createCsvString(topid, time, tweet.status.getId, tweet.status.getText)
 
       print(logEntry)
-      print("attempting to submit tweetBurstCount (leastSimilarTweets)"
+      print("attempting to submit tweetBurstCount (leastSimilarTweets)")
       outputFileWriter.write(logEntry)
       submitTweet(tweet.status, jaccardSim, tweetBurstCount, topid, TrecBurstConf, wsClient)
     })

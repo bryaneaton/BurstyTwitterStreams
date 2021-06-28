@@ -71,9 +71,9 @@ object RetweetApp {
     }
 
     val checkpointPath = if ( args.size > 4 ) {
-      "/tmp/checkpointDirectory-" + args(4)
+      "./checkpointDirectory-" + args(4)
     } else {
-      "/tmp/checkpointDirectory"
+      "./checkpointDirectory"
     }
     ssc.checkpoint(checkpointPath)
 

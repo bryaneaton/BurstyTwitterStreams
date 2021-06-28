@@ -1,5 +1,8 @@
 version: '3.8'
 
+volumes:
+  spark_data:
+    driver: local
 
 networks:
   app-net:
@@ -27,7 +30,7 @@ services:
     depends_on:
       - zookeeper
   spark:
-    image: docker.io/bitnami/spark:2.4.6
+    build: ./spark
     user: root
     environment:
       - SPARK_MODE=master
@@ -36,14 +39,14 @@ services:
       - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
       - SPARK_SSL_ENABLED=no
     volumes:
-      - /tmp:/tmp
+      - spark_data:/tmp
     networks:
       - app-net
     ports:
       - '8081:8080'
       - '7077:7077'
   spark-worker:
-    image: docker.io/bitnami/spark:2.4.6
+    build: ./spark
     user: root
     environment:
       - SPARK_MODE=worker
@@ -55,7 +58,7 @@ services:
       - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
       - SPARK_SSL_ENABLED=no
     volumes:
-      - /tmp:/tmp
+      - spark_data:/tmp
     networks:
       - app-net
   
